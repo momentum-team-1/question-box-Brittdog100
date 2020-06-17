@@ -10,7 +10,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
 	question = models.ForeignKey(to = Question, on_delete = models.CASCADE, related_name = "answers")
-	#is_answer bool
+	is_answer = models.BooleanField(default = False)
 
 class Comment(models.Model):
 	user = models.ForeignKey(to = User, on_delete = models.SET_NULL, related_name = "comments")
