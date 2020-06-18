@@ -47,9 +47,11 @@ INSTALLED_APPS = [
     # Third-party
     'debug_toolbar',
     'django_extensions',
+    'registration',
 
     # Project-specific
     'users',
+    'questionbox'
 ]
 
 MIDDLEWARE = [
@@ -142,3 +144,9 @@ INTERNAL_IPS = [
 import django_heroku
 django_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
+
+ACCOUNT_ACTIVATION_DAYS = 47000000
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_URL = 'accounts/login'
+LOGIN_REDIRECT_URL = "foo"
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
