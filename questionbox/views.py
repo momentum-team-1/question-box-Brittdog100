@@ -13,7 +13,7 @@ def post_question(request):
 		form = QuestionForm()
 	else:
 		form = QuestionForm(data = request.POST)
-		if(form.is_valid())
+		if form.is_valid():
 			question = form.save(commit = False)
 			question.user = request.user
 			question.save()
@@ -45,5 +45,5 @@ def profile(request, username = None):
 		pass #403
 	if username is None:
 		return redirect(to = 'profile', username = request.user.username)
-	else
+	else:
 		pass
