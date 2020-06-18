@@ -1,5 +1,13 @@
 {% extends base.html %}
 
 {% block content %}
-
+	<h1>Question Box</h1>
+	<hr>
+	{% if user.is_authenticated %}
+		<a href="{% url 'post_question' %}">Ask a question</a><br>
+	{% else %}
+		<p>Please <a href='login'>log in</a> or <a href="register">sign up</a></p>
+	{% endif %}
+	<a href="{% url 'search' %}">Search QuestionBox</a>
+	<hr>
 {% endblock %}
