@@ -6,5 +6,13 @@
 		Asked by <a href="#">{{ question.user.name }}</a>
 	</p>
 	<hr>
-
+	<p>
+		{{ question.body }}
+	</p>
+	<hr>
+	{% for answer in question.answers %}
+		<p>{{ answer.body }}</p>
+		<p>from {{ answer.user.name }}</p>
+		<hr>
+	{% endfor %}
 {% endblock %}
