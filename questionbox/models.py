@@ -1,7 +1,7 @@
 from django.db import models
 from users.models import User
 
-BODY_LENGTH = 32767
+BODY_LENGTH = 65535
 
 class Question(models.Model):
 	title = models.TextField(max_length = 255)

@@ -18,3 +18,6 @@ def star_answer(request, answer):
 
 def search(request, query):
 	pass
+
+def homepage(request):
+	pass

@@ -16,9 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
+from questionbox import views as q_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.default.urls')),
+	path('', q_views.homepage, name = 'home'),
+    path('question/<int:pk>/', q_views.view_question, name = 'view_question'),
+    path('question/ask/', q_views.post_question, name = "post_question"),
+    path('question/<int:pk>/answer', q_views.post_answer, name = "post_answer"),
+    path('search/', q_views.search, name = 'search')
 ]
 
 if settings.DEBUG:
