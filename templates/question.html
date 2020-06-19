@@ -13,8 +13,10 @@
 	</p>
 	<hr>
 	{% for answer in question.answers %}
-		<p>{{ answer.body|markdownify }}</p>
-		<p>from {{ answer.user.name }}</p>
+		<div id="{{ answer.pk }}">
+			<p>{{ answer.body|markdownify }}</p>
+			<p>from {{ answer.user.name }}</p>
+		</div>
 		<hr>
 	{% endfor %}
 {% endblock %}

@@ -3,7 +3,8 @@
 {% block content %}
 	<h1>Question Box</h1>
 	<p>
-		<a href=""
+		<i><b>"The greatest place to ask a question"</b><br>
+		-Nobody, but I wanted an endorsement quote here anyway.</i>
 	</p>
 	<hr>
 	{% if user.is_authenticated %}
@@ -11,6 +12,9 @@
 	{% else %}
 		<p>Please <a href="accounts/login">log in</a> or <a href="accounts/register">sign up</a></p>
 	{% endif %}
-	<a href="{% url 'search' %}">Search QuestionBox</a>
 	<hr>
+	<form action="{% url 'search' %}">
+		<input name="q" placeholder="Search Questionbox">
+		<button type="submit">Go!</button>
+	</form>
 {% endblock %}
