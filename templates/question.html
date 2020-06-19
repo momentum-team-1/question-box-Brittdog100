@@ -15,8 +15,11 @@
 	{% for answer in question.answers.all %}
 		<div id="{{ answer.pk }}">
 			<p>{{ answer.body|markdownify }}</p>
-			<p>from {{ answer.user.name }}</p>
+			<p>from <a href="{% url 'profile' username=answer.user.username %}">{{ answer.user.username }}</a></p>
 		</div>
 		<hr>
 	{% endfor %}
+	<div>
+		<p>Know the answer? <a href="{% url 'post_answer' question_pk=question.pk %}">Post it!</a></p>
+	</div>
 {% endblock %}

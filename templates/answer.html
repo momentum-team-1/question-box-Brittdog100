@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
+{% load markdownify %}
+
 {% block content %}
 	<h3>{{ question.title }}</h3>
 	<p>{{ question.body|markdownify }}</p>
 	<hr>
-	<form action="{% url 'post_answer' %}">
+	<form action="{% url 'post_answer' question_pk=question.pk %}" method="POST">
+		{% csrf_token %}
 		{{ form.as_p }}
 		<button type="submit">Post answer</button>
 	</form>

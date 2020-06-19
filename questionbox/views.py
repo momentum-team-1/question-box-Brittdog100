@@ -26,6 +26,7 @@ def post_question(request):
 
 @login_required
 def post_answer(request, question_pk):
+	question = get_object_or_404(Question, pk = question_pk)
 	if request.method == 'GET':
 		form = AnswerForm()
 	else:
@@ -36,7 +37,7 @@ def post_answer(request, question_pk):
 			answer.question = get_object_or_404(Question, pk = question_pk)
 			answer.save()
 			return redirect(to = 'view_question', pk = question_pk)
-	return render(request, "answer.html")
+	return render(request, "answer.html", { "form": form, "question": question })
 
 @login_required
 def star_question(request, pk):
