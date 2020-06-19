@@ -60,6 +60,8 @@ def star_answer(request, pk):
 		star.answer = answer
 		star.save()
 		return HttpResponse(status = 200)
+	elif query.method == 'DELETE':
+		pass
 	return HttpResponse(status = 405)
 
 def search(request, query):

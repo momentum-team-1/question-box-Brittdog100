@@ -148,5 +148,5 @@ del DATABASES['default']['OPTIONS']['sslmode']
 ACCOUNT_ACTIVATION_DAYS = 47000000
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_URL = 'accounts/login'
-LOGIN_REDIRECT_URL = "foo"
+LOGIN_REDIRECT_URL = "home"
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
