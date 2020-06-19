@@ -2,7 +2,7 @@
 
 {% block content %}
 	<div>
-		<form action="{% url 'post_question' %}">
+		<form action="{% url 'post_question' %}" method="POST">
 			{% csrf_token %}
 			{{ form.as_p }}
 			<div>

@@ -3,16 +3,16 @@
 {% load markdownify %}
 
 {% block content %}
-	<h1>{{ question.title }}</h1>
+	<h1>{{ question.title|markdownify }}</h1>
 	<p>
-		Asked by <a href="#">{{ question.user.name }}</a>
+		Asked by <a href="{% url 'profile' username=question.user.username %}">{{ question.user.username }}</a>
 	</p>
 	<hr>
 	<p>
 		{{ question.body|markdownify }}
 	</p>
 	<hr>
-	{% for answer in question.answers %}
+	{% for answer in question.answers.all %}
 		<div id="{{ answer.pk }}">
 			<p>{{ answer.body|markdownify }}</p>
 			<p>from {{ answer.user.name }}</p>

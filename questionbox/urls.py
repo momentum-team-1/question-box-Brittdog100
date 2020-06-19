@@ -24,8 +24,10 @@ urlpatterns = [
 	path('', q_views.homepage, name = 'home'),
     path('question/<int:pk>/', q_views.view_question, name = 'view_question'),
     path('question/ask/', q_views.post_question, name = "post_question"),
-    path('question/<int:pk>/answer', q_views.post_answer, name = "post_answer"),
-    path('search/', q_views.search, name = 'search')
+    path('question/<int:pk>/answer/', q_views.post_answer, name = "post_answer"),
+    path('search/', q_views.search, name = 'search'),
+    path('profile/', q_views.profile, name = 'myprofile'),
+    path('profile/<str:username>/', q_views.profile, name = 'profile')
 ]
 
 if settings.DEBUG:

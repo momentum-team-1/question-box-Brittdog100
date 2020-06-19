@@ -6,19 +6,22 @@ from .models import Question, Answer
 
 def view_question(request, pk):
 	question = get_object_or_404(Question, pk = pk)
+	print(pk)
 	return render(request, "question.html", { "question": question })
 
 @login_required
 def post_question(request):
 	if request.method == "GET":
 		form = QuestionForm()
-	else:
+	elif request.method == 'POST':
 		form = QuestionForm(data = request.POST)
 		if form.is_valid():
 			question = form.save(commit = False)
 			question.user = request.user
 			question.save()
 			return redirect(to = 'view_question', pk = question.pk)
+	else:
+		return HttpResponse(status = 405)
 	return render(request, "ask.html", { "form": form })
 
 @login_required
@@ -38,7 +41,7 @@ def post_answer(request, question_pk):
 @login_required
 def star_question(request, pk):
 	question = get_object_or_404(Question, pk = pk)
-	if not request.user.is_authenticated():
+	if not request.user.is_authenticated:
 		return HttpResponse(status = 403)
 	if query.method == 'POST':
 		star = Star()
@@ -51,7 +54,7 @@ def star_question(request, pk):
 @login_required
 def star_answer(request, pk):
 	answer = get_object_or_404(Answer, pk = pk)
-	if not request.user.is_authenticated():
+	if not request.user.is_authenticated:
 		return HttpResponse(status = 403)
 	if query.method == "POST":
 		star = Star()
@@ -64,11 +67,11 @@ def star_answer(request, pk):
 		pass
 	return HttpResponse(status = 405)
 
-def search(request, query):
+def search(request):
 	query = request.GET.get('q')
 	if query is not None:
-		questions = Question.objects.filter(question_body__icontains = query)
-		answers = Answer.objects.filtern(answer_body__icontains = query)
+		questions = Question.objects.filter(body__icontains = query)
+		answers = Answer.objects.filter(body__icontains = query)
 		return render(request, "search.html", { "query": query, "questions": questions, "answers": answers })
 	else:
 		return render(request, "search.html")
@@ -77,7 +80,7 @@ def homepage(request):
 	return render(request, "home.html")
 
 def profile(request, username = None):
-	if not request.user.is_authenticated():
+	if not request.user.is_authenticated:
 		return HttpResponse(status = 403)
 	if username is None:
 		return redirect(to = 'profile', username = request.user.username)
