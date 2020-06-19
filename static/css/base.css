@@ -1,6 +1,18 @@
+* {
+	font-family: sans-serif;
+}
+
 body {
 	color: #fff;
 	background-color: #4b4b4b;
+}
+
+a {
+	color: #5656FF;
+}
+
+a:visited {
+	color: #A656FF;
 }
 
 code {

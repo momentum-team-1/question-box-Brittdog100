@@ -34,14 +34,19 @@ def post_answer(request, question_pk):
 			return redirect(to = 'view_question', pk = question_pk)
 	return render(request, "answer.html")
 
+def star_question(request, pk):
+	pass
+
 @login_required
-def star_answer(request, answer):
+def star_answer(request, pk):
 	pass # add a star to the answer, then send a success code?
 
 def search(request, query):
 	query = request.GET.get('q')
 	if query is not None:
-		return render(request, "search.html", { "query": query })
+		questions = Question.objects.filter(question_body__icontains = query)
+		answers = Answer.objects.filtern(answer_body__icontains = query)
+		return render(request, "search.html", { "query": query, "questions": questions, "answers": answers })
 	else:
 		return render(request, "search.html")
 
