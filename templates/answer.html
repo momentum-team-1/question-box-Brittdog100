@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h3>{{ question.title }}</h3>
+	<p>{{ question.body|markdownify }}</p>
+	<hr>
+	<form action="{% url 'post_answer' %}">
+		{{ form.as_p }}
+		<button type="submit">Post answer</button>
+	</form>
+{% endblock %}
