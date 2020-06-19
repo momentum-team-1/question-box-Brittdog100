@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from .forms import QuestionForm, AnswerForm
 from .models import Question, Answer
 
@@ -34,12 +35,32 @@ def post_answer(request, question_pk):
 			return redirect(to = 'view_question', pk = question_pk)
 	return render(request, "answer.html")
 
+@login_required
 def star_question(request, pk):
-	pass
+	question = get_object_or_404(Question, pk = pk)
+	if not request.user.is_authenticated():
+		return HttpResponse(status = 403)
+	if query.method == 'POST':
+		star = Star()
+		star.user = request.user
+		star.question = question
+		star.save()
+		return HttpResponse(status = 200)
+	return HttpResponse(status = 405)
 
 @login_required
 def star_answer(request, pk):
-	pass # add a star to the answer, then send a success code?
+	answer = get_object_or_404(Answer, pk = pk)
+	if not request.user.is_authenticated():
+		return HttpResponse(status = 403)
+	if query.method == "POST":
+		star = Star()
+		star.user = request.user
+		star.question = answer.question
+		star.answer = answer
+		star.save()
+		return HttpResponse(status = 200)
+	return HttpResponse(status = 405)
 
 def search(request, query):
 	query = request.GET.get('q')
@@ -55,8 +76,8 @@ def homepage(request):
 
 def profile(request, username = None):
 	if not request.user.is_authenticated():
-		pass #403
+		return HttpResponse(status = 403)
 	if username is None:
 		return redirect(to = 'profile', username = request.user.username)
 	else:
-		pass
+		return render(request, "profile.html")
