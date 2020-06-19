@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load markdownify %}
+
 {% block content %}
 	<h1>{{ question.title }}</h1>
 	<p>
@@ -7,11 +9,11 @@
 	</p>
 	<hr>
 	<p>
-		{{ question.body }}
+		{{ question.body|markdownify }}
 	</p>
 	<hr>
 	{% for answer in question.answers %}
-		<p>{{ answer.body }}</p>
+		<p>{{ answer.body|markdownify }}</p>
 		<p>from {{ answer.user.name }}</p>
 		<hr>
 	{% endfor %}
