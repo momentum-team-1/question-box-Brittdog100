@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 
+# The maximum length of text bodies.
 BODY_LENGTH = 65535
 
 class Question(models.Model):
