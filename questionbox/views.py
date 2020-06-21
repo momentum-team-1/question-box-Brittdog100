@@ -68,6 +68,20 @@ def star_answer(request, pk):
 		pass
 	return HttpResponse(status = 405)
 
+@login_required
+def is_star_question(request, pk):
+	if query.method == 'GET':
+		pass #return if pk q is starred
+	else:
+		return HttpResponse(status = 405)
+
+@login_required
+def is_star_answer(request, pk):
+	if query.method == 'GET':
+		pass #return if pk a is starred
+	else:
+		return HttpResponse(status = 405)
+
 def search(request):
 	query = request.GET.get('q')
 	if query is not None:

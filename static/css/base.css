@@ -18,6 +18,10 @@ body {
 	white-space: pre-wrap;
 }
 
+.star {
+	color: orange;
+}
+
 a {
 	color: #5656FF;
 }

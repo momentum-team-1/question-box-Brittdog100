@@ -28,6 +28,10 @@ urlpatterns = [
     path('search/', q_views.search, name = 'search'),
     path('profile/', q_views.profile, name = 'myprofile'),
     path('profile/<str:username>/', q_views.profile, name = 'profile')
+    path('ajax/answer/<int:pk>/is_star/', q_views.is_star_answer, 'ajas_is_star_a'),
+    path('ajax/question/<int:pk>/is_star/', q_views.is_star_question, 'ajax_is_star_q'),
+    path('ajax/answer/<int:pk>/star/', q_views.star_answer, 'ajax_star_a'),
+    path('ajax/question/<int:pk>/star/', q_views.star_question, 'ajax_star_q')
 ]
 
 if settings.DEBUG:
