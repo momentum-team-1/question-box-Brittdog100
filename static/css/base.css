@@ -7,6 +7,17 @@ body {
 	background-color: #4b4b4b;
 }
 
+.body {
+	/*	I used this before, but if anyone wondered,
+	 *	this makes the HTML respect the line breaks
+	 *	in the text. Since line breaks can be important
+	 *	in a question or answer body, I'm using it for
+	 *	the fields where we're rendering question and
+	 *	answer bodies.
+	 */
+	white-space: pre-wrap;
+}
+
 a {
 	color: #5656FF;
 }
@@ -16,5 +27,5 @@ a:visited {
 }
 
 code {
-	font: "Fira Code";
+	font: "Fira Code", monospace;
 }

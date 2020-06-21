@@ -3,8 +3,11 @@
 {% load markdownify %}
 
 {% block content %}
+	<h2>QuestionBox</h2>
+	<a href="{% url 'home' %}">Home</a>
+	<hr>
 	<h1>{{ question.title|markdownify }}</h1>
-	<p>
+	<p class="body">
 		Asked by <a href="{% url 'profile' username=question.user.username %}">{{ question.user.username }}</a>
 		on {{ question.timestamp }}
 	</p>
@@ -14,7 +17,7 @@
 	<hr>
 	{% for answer in question.answers.all %}
 		<div id="{{ answer.pk }}">
-			<p>{{ answer.body|markdownify }}</p>
+			<p class="body">{{ answer.body|markdownify }}</p>
 			<p>from <a href="{% url 'profile' username=answer.user.username %}">{{ answer.user.username }}</a> on {{ answer.timestamp }}</p>
 		</div>
 		<hr>
