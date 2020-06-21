@@ -6,8 +6,8 @@
 	<h1>{{ question.title|markdownify }}</h1>
 	<p>
 		Asked by <a href="{% url 'profile' username=question.user.username %}">{{ question.user.username }}</a>
+		on {{ question.timestamp }}
 	</p>
-	<hr>
 	<p>
 		{{ question.body|markdownify }}
 	</p>
@@ -15,7 +15,7 @@
 	{% for answer in question.answers.all %}
 		<div id="{{ answer.pk }}">
 			<p>{{ answer.body|markdownify }}</p>
-			<p>from <a href="{% url 'profile' username=answer.user.username %}">{{ answer.user.username }}</a></p>
+			<p>from <a href="{% url 'profile' username=answer.user.username %}">{{ answer.user.username }}</a> on {{ answer.timestamp }}</p>
 		</div>
 		<hr>
 	{% endfor %}

@@ -9,6 +9,8 @@ class Question(models.Model):
 	body = models.TextField(max_length = BODY_LENGTH)
 	user = models.ForeignKey(to = User, on_delete = models.SET_NULL, related_name = "questions", null = True)
 	timestamp = models.DateTimeField(auto_now_add = True)
+	def __repr__(self):
+		return ('"' + self.title + '" asked by ' + self.user.username)
 
 class Answer(models.Model):
 	question = models.ForeignKey(to = Question, on_delete = models.CASCADE, related_name = "answers")
@@ -16,6 +18,8 @@ class Answer(models.Model):
 	body = models.TextField(max_length = BODY_LENGTH)
 	is_answer = models.BooleanField(default = False)
 	timestamp = models.DateTimeField(auto_now_add = True)
+	def __repr__():
+		return ('answer to "' + self.question.title + '" posted by ' + self.user.name)
 
 class Comment(models.Model):
 	user = models.ForeignKey(to = User, on_delete = models.SET_NULL, related_name = "comments", null = True)
