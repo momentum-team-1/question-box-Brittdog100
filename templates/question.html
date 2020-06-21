@@ -16,7 +16,7 @@
 	</p>
 	<hr>
 	{% for answer in question.answers.all %}
-		<div id="{{ answer.pk }}">
+		<div id="{{ answer.pk }}" {% if answer.is_correct %}id="correct"{% endif %}>
 			<p class="body">{{ answer.body|markdownify }}</p>
 			<p>from <a href="{% url 'profile' username=answer.user.username %}">{{ answer.user.username }}</a> on {{ answer.timestamp }}</p>
 			<a id="{{answer.pk}}" class="star">&star;</a>
