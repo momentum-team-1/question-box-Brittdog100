@@ -33,7 +33,8 @@ urlpatterns = [
     path('ajax/answer/<int:pk>/is_star/', q_views.is_star_answer, name = 'ajas_is_star_a'),
     path('ajax/question/<int:pk>/is_star/', q_views.is_star_question, name = 'ajax_is_star_q'),
     path('ajax/answer/<int:pk>/star/', q_views.star_answer, name = 'ajax_star_a'),
-    path('ajax/question/<int:pk>/star/', q_views.star_question, name = 'ajax_star_q')
+    path('ajax/question/<int:pk>/star/', q_views.star_question, name = 'ajax_star_q'),
+    path('api_auth', include('rest_framework.urls', namespace = 'rest_framework'))
 ]
 
 if settings.DEBUG:

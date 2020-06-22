@@ -124,7 +124,7 @@ def search(request):
 		return render(request, "search.html")
 
 def homepage(request):
-	return render(request, "home.html")
+	return render(request, "home.html", { "random": get_randoms() })
 
 def profile(request, username = None):
 	if not request.user.is_authenticated:
@@ -135,7 +135,4 @@ def profile(request, username = None):
 		return render(request, "profile.html")
 
 def get_randoms():
-	rdm = Question.objects.all().order_by('?')
-	output = []
-	for(x = 0; x < 5; x += 1):
-		pass
+	return Question.objects.order_by('?').all()[0:5]

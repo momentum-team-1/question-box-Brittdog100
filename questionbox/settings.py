@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'registration',
     'markdownify',
+    'rest_framework',
 
     # Project-specific
     'users',

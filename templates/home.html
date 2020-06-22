@@ -19,6 +19,8 @@
 	</form>
 	<hr>
 	<div>
-		<!--I want some random, recent questions here.-->
-	</div>
+	{% for post in random %}
+		<p>"<a href="{% url 'view_question' pk=post.pk %}">{{ post.title }}</a>" asked by {{ post.user.username }} ({{ post.timestamp }})</p>
+	{% endfor %}
+		</div>
 {% endblock %}
