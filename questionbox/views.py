@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from .forms import QuestionForm, AnswerForm
 from .models import Question, Answer
 
@@ -77,10 +78,33 @@ def is_star_question(request, pk):
 
 @login_required
 def is_star_answer(request, pk):
+	if not user.is_authenticated:
+		return HttpResponse(status = 403)
+	answer = get_object_or_404(Answer, pk = pk)
+	is_star = (len(request.user.stars.filter(answer = answer)) ==1)
 	if query.method == 'GET':
-		pass #return if pk a is starred
+		return JsonResponse({ 'star': is_star })
 	else:
 		return HttpResponse(status = 405)
+
+def is_correct(request, pk):
+	answer = get_object_or_404(Answer, pk = pk)
+	if request.method == 'GET':
+		return JsonResponse({ 'correct': answer.is_answer })
+	else:
+		return HttpResponse(status = 405)
+
+@csrf_exempt
+@login_required
+def toggle_correct(request, pk):
+	answer = get_object_or_404(Answer, pk = pk)
+	if (not request.user.is_authenticated) or request.user.username != answer.question.user.username:
+		return Httpresponse(status = 403)
+	if request.method != 'POST':
+		return HttpResponse(status = 405)
+	answer.is_answer = not answer.is_answer
+	answer.save()
+	return HttpResponse(status = 200)
 
 def search(request):
 	query = request.GET.get('q')

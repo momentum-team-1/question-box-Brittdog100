@@ -20,6 +20,11 @@ body {
 
 .star {
 	color: orange;
+	cursor: pointer;
+}
+
+a.mark:visited {
+	color:  #5656FF;
 }
 
 a {

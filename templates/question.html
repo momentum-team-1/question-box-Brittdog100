@@ -16,10 +16,13 @@
 	</p>
 	<hr>
 	{% for answer in question.answers.all %}
-		<div id="{{ answer.pk }}">
+		<div id="{{ answer.pk }}" {% if answer.is_correct %} class="correct" {% endif %}>
 			<p class="body">{{ answer.body|markdownify }}</p>
 			<p>from <a href="{% url 'profile' username=answer.user.username %}">{{ answer.user.username }}</a> on {{ answer.timestamp }}</p>
-			<a id="{{answer.pk}}" class="star">&star;</a>
+			<a id="{{ answer.pk }}" class="star">&star;</a>
+			{% if request.user.id is question.user.id %}
+				<a href="#" id='{{ answer.pk }}' class="mark">waiting for AJAX</a>
+			{% endif %}
 		</div>
 		<hr>
 	{% endfor %}
@@ -29,11 +32,7 @@
 {% endblock %}
 
 {% block script %}
-	<script defer>
-		stars = document.querySelectorAll(".star");
-		for(star of stars) {
-			pk = star.id;
-			correct = fetch();
-		}
-	</script>
+	{% load static %}
+	<script> let csrf_token = '{% csrf_token %}'; </script>
+	<script src="{% static 'js/question.js' %}" defer></script>
 {% endblock %}
