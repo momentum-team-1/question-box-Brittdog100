@@ -71,8 +71,12 @@ def star_answer(request, pk):
 
 @login_required
 def is_star_question(request, pk):
+	if not user.is_authenticated:
+		return HttpResponse(status = 403)
+	question = get_object_or_404(Question, pk = pk)
+	is_star = (len(request.user.stars.filter(question = question, answer = None)) == 1)
 	if query.method == 'GET':
-		pass #return if pk q is starred
+		return JsonResponse({ 'star' : is_star })
 	else:
 		return HttpResponse(status = 405)
 
@@ -81,7 +85,7 @@ def is_star_answer(request, pk):
 	if not user.is_authenticated:
 		return HttpResponse(status = 403)
 	answer = get_object_or_404(Answer, pk = pk)
-	is_star = (len(request.user.stars.filter(answer = answer)) ==1)
+	is_star = (len(request.user.stars.filter(answer = answer)) == 1)
 	if query.method == 'GET':
 		return JsonResponse({ 'star': is_star })
 	else:

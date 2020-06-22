@@ -1,39 +1,47 @@
 //BIG TODO: csrf
+/*
+async function query_star(pk, isQuestion = false) {
+	return fetch('/ajax/' + (isQuestion ? 'question' : 'answer') + '/' + pk + '/is_star', {
+		method: 'GET',
+		credentials: 'include'
+	}).then((response) => { return response.json(); }).then((data) => { return data.star; });
+}
+
+async function mark_star(pk, star, isQuestion = false) {
+	query_star(pk, isQuestion).then((data) => { star.innerHTML = data ? '&starf;' : '&star;'; });
+}
+
 stars = document.querySelectorAll(".star");
 for(star of stars) {
 	pk = star.id;
+	mark_star(pk, star);
 	star.addEventListener('click', () => {
 		fetch('/ajax/answer/' + pk + '/star', {
 			method: 'POST',
 			credentials: 'include'
-		});
-		fetch('/ajax/answer/' + pk + '/is_star', {
-			method: 'GET',
-			credentials: 'include'
-		}).then(response => response.json)
-		.then(data => {
-			if(data.star)
-				star.innerHTML = '&starf;';
-			else
-				star.innerHTML = '&star;';
-		})
+		}).then(mark_star(pk, star));
 	});
 }
 
+q_star = document.querySelector(".qstar");
+pk = q_star.id
+mark_star(pk, q_star, true)
+q_star.addEventListener('click', () => {
+	fetch('/ajax/question/' + pk + '/star', {
+		method: 'POST',
+		credentials: 'include'
+	}).then(mark_star(pk, q_star, true));
+});
+*/
 async function query_answer_c(pk) {
 	return fetch('/ajax/answer/' + pk + '/is_correct', {
 		method: 'GET',
 		credentials: 'include'
-	}).then(function(response) { return response.json(); }).then(function(data) { return data.correct; });
+	}).then((response) => { return response.json(); }).then((data) => { return data.correct; });
 }
 
 async function do_mark_text(pk, marker) {
-	query_answer_c(pk).then((data) => {
-		if(data)
-			marker.innerHTML = "Unmark as correct";
-		else
-			marker.innerHTML = "Mark as correct";
-	});
+	query_answer_c(pk).then((data) => { marker.innerHTML = data ? "Unmark as correct" : "Mark as correct"; });
 }
 
 markers = document.querySelectorAll('.mark');
