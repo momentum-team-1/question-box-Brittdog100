@@ -1,5 +1,5 @@
 //BIG TODO: csrf
-/*
+
 async function query_star(pk, isQuestion = false) {
 	return fetch('/ajax/' + (isQuestion ? 'question' : 'answer') + '/' + pk + '/is_star', {
 		method: 'GET',
@@ -15,8 +15,9 @@ stars = document.querySelectorAll(".star");
 for(star of stars) {
 	pk = star.id;
 	mark_star(pk, star);
+	console.log(pk);
 	star.addEventListener('click', () => {
-		fetch('/ajax/answer/' + pk + '/star', {
+		fetch('/ajax/answer/' + pk + '/star/', {
 			method: 'POST',
 			credentials: 'include'
 		}).then(mark_star(pk, star));
@@ -24,15 +25,17 @@ for(star of stars) {
 }
 
 q_star = document.querySelector(".qstar");
-pk = q_star.id
-mark_star(pk, q_star, true)
-q_star.addEventListener('click', () => {
-	fetch('/ajax/question/' + pk + '/star', {
-		method: 'POST',
-		credentials: 'include'
-	}).then(mark_star(pk, q_star, true));
-});
-*/
+if(q_star != null) {
+	pk = q_star.id
+	mark_star(pk, q_star, true)
+	q_star.addEventListener('click', () => {
+		fetch('/ajax/question/' + pk + '/star/', {
+			method: 'POST',
+			credentials: 'include'
+		}).then(mark_star(pk, q_star, true));
+	});
+}
+
 async function query_answer_c(pk) {
 	return fetch('/ajax/answer/' + pk + '/is_correct', {
 		method: 'GET',

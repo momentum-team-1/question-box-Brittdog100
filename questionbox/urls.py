@@ -30,10 +30,10 @@ urlpatterns = [
     path('profile/<str:username>/', q_views.profile, name = 'profile'),
     path('ajax/answer/<int:pk>/is_correct', q_views.is_correct, name = 'ajax_is_correct'),
     path('ajax/answer/<int:pk>/toggle_correct', q_views.toggle_correct, name = 'ajax_toggle_correct'),
-    path('ajax/answer/<int:pk>/is_star/', q_views.is_star_answer, 'ajas_is_star_a'),
-    path('ajax/question/<int:pk>/is_star/', q_views.is_star_question, 'ajax_is_star_q'),
-    path('ajax/answer/<int:pk>/star/', q_views.star_answer, 'ajax_star_a'),
-    path('ajax/question/<int:pk>/star/', q_views.star_question, 'ajax_star_q')
+    path('ajax/answer/<int:pk>/is_star/', q_views.is_star_answer, name = 'ajas_is_star_a'),
+    path('ajax/question/<int:pk>/is_star/', q_views.is_star_question, name = 'ajax_is_star_q'),
+    path('ajax/answer/<int:pk>/star/', q_views.star_answer, name = 'ajax_star_a'),
+    path('ajax/question/<int:pk>/star/', q_views.star_question, name = 'ajax_star_q')
 ]
 
 if settings.DEBUG:

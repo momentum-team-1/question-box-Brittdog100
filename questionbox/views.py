@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from .forms import QuestionForm, AnswerForm
-from .models import Question, Answer
+from .models import Question, Answer, Star
 
 def view_question(request, pk):
 	question = get_object_or_404(Question, pk = pk)
@@ -40,12 +40,13 @@ def post_answer(request, question_pk):
 			return redirect(to = 'view_question', pk = question_pk)
 	return render(request, "answer.html", { "form": form, "question": question })
 
+@csrf_exempt
 @login_required
 def star_question(request, pk):
 	question = get_object_or_404(Question, pk = pk)
 	if not request.user.is_authenticated:
 		return HttpResponse(status = 403)
-	if query.method == 'POST':
+	if request.method == 'POST':
 		star = Star()
 		star.user = request.user
 		star.question = question
@@ -53,12 +54,13 @@ def star_question(request, pk):
 		return HttpResponse(status = 200)
 	return HttpResponse(status = 405)
 
+@csrf_exempt
 @login_required
 def star_answer(request, pk):
 	answer = get_object_or_404(Answer, pk = pk)
 	if not request.user.is_authenticated:
 		return HttpResponse(status = 403)
-	if query.method == "POST":
+	if request.method == "POST":
 		star = Star()
 		star.user = request.user
 		star.question = answer.question
@@ -71,7 +73,7 @@ def star_answer(request, pk):
 
 @login_required
 def is_star_question(request, pk):
-	if not user.is_authenticated:
+	if not request.user.is_authenticated:
 		return HttpResponse(status = 403)
 	question = get_object_or_404(Question, pk = pk)
 	is_star = (len(request.user.stars.filter(question = question, answer = None)) == 1)
@@ -82,11 +84,11 @@ def is_star_question(request, pk):
 
 @login_required
 def is_star_answer(request, pk):
-	if not user.is_authenticated:
+	if not request.user.is_authenticated:
 		return HttpResponse(status = 403)
 	answer = get_object_or_404(Answer, pk = pk)
 	is_star = (len(request.user.stars.filter(answer = answer)) == 1)
-	if query.method == 'GET':
+	if request.method == 'GET':
 		return JsonResponse({ 'star': is_star })
 	else:
 		return HttpResponse(status = 405)
