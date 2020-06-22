@@ -60,15 +60,17 @@ def star_answer(request, pk):
 	answer = get_object_or_404(Answer, pk = pk)
 	if not request.user.is_authenticated:
 		return HttpResponse(status = 403)
+	star = Star.objects.filter(answer = pk)
 	if request.method == "POST":
-		star = Star()
-		star.user = request.user
-		star.question = answer.question
-		star.answer = answer
-		star.save()
+		if(len(star) > 0):
+			star[0].delete()
+		else:
+			star = Star()
+			star.user = request.user
+			star.question = answer.question
+			star.answer = answer
+			star.save()
 		return HttpResponse(status = 200)
-	elif query.method == 'DELETE':
-		pass
 	return HttpResponse(status = 405)
 
 @login_required

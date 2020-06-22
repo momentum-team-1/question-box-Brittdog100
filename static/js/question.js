@@ -15,12 +15,11 @@ stars = document.querySelectorAll(".star");
 for(star of stars) {
 	pk = star.id;
 	mark_star(pk, star);
-	console.log(pk);
 	star.addEventListener('click', () => {
 		fetch('/ajax/answer/' + pk + '/star/', {
 			method: 'POST',
 			credentials: 'include'
-		}).then(mark_star(pk, star));
+		}).then(() => { mark_star(pk, star); });
 	});
 }
 
