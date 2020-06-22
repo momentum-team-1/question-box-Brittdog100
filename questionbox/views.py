@@ -133,3 +133,9 @@ def profile(request, username = None):
 		return redirect(to = 'profile', username = request.user.username)
 	else:
 		return render(request, "profile.html")
+
+def get_randoms():
+	rdm = Question.objects.all().order_by('?')
+	output = []
+	for(x = 0; x < 5; x += 1):
+		pass
