@@ -79,7 +79,7 @@ def is_star_question(request, pk):
 		return HttpResponse(status = 403)
 	question = get_object_or_404(Question, pk = pk)
 	is_star = (len(request.user.stars.filter(question = question, answer = None)) == 1)
-	if query.method == 'GET':
+	if request.method == 'GET':
 		return JsonResponse({ 'star' : is_star })
 	else:
 		return HttpResponse(status = 405)

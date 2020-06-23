@@ -6,7 +6,7 @@
 	<h2>QuestionBox</h2>
 	<a href="{% url 'home' %}">Home</a>
 	<hr>
-	<h1>{{ question.title|markdownify }}</h1>
+	<h1>{{ question.title|markdownify }} <a class="qstar" id="{{ question.pk }}">&star;</a></h1>
 	<p class="body">
 		Asked by <a href="{% url 'profile' username=question.user.username %}">{{ question.user.username }}</a>
 		on {{ question.timestamp }}
