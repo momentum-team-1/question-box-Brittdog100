@@ -18,7 +18,7 @@ from django.conf import settings
 from django.urls import include, path
 from questionbox import views as q_views
 
-from .rest import router
+from api.rest import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),

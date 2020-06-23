@@ -53,7 +53,8 @@ INSTALLED_APPS = [
 
     # Project-specific
     'users',
-    'questionbox'
+    'questionbox',
+    'api'
 ]
 
 MIDDLEWARE = [
