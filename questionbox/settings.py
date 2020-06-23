@@ -152,3 +152,9 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_URL = 'accounts/login'
 LOGIN_REDIRECT_URL = "home"
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
