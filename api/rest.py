@@ -15,6 +15,7 @@ class UserViewSet(viewsets.ModelViewSet):
 router.register('users', UserViewSet)
 
 class AnswerSerializer(serializers.HyperlinkedModelSerializer):
+	user = UserSerializer()#read_only = True, required = False, default = serializers.CurrentUserDefault())
 	class Meta:
 		model = Answer
 		fields = ['url', 'question', 'body', 'user', 'is_answer', 'timestamp']
@@ -25,7 +26,8 @@ router.register('answers', AnswerViewSet)
 
 
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
-	answers = AnswerSerializer(many = True)
+	answers = AnswerSerializer(many = True, required = False)
+	user = UserSerializer(read_only = True, required = False, default = serializers.CurrentUserDefault())
 	class Meta:
 		model = Question
 		fields = ['url', 'title', 'body', 'user', 'answers', 'timestamp']
