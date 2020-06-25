@@ -7,14 +7,14 @@ BODY_LENGTH = 65535
 class Question(models.Model):
 	title = models.TextField(max_length = 255)
 	body = models.TextField(max_length = BODY_LENGTH)
-	user = models.ForeignKey(to = User, on_delete = models.SET_NULL, related_name = "questions", null = True)
+	user = models.ForeignKey(to = User, on_delete = models.CASCADE, related_name = "questions", null = True)
 	timestamp = models.DateTimeField(auto_now_add = True)
 	def __repr__(self):
 		return ('"' + self.title + '" asked by ' + self.user.username)
 
 class Answer(models.Model):
-	question = models.ForeignKey(to = Question, on_delete = models.CASCADE, related_name = "answers")
-	user = models.ForeignKey(to = User, on_delete = models.SET_NULL, related_name = "answers", null = True)
+	question = models.ForeignKey(to = Question, on_delete = models.CASCADE, related_name = "answers", null = True)
+	user = models.ForeignKey(to = User, on_delete = models.CASCADE, related_name = "answers")
 	body = models.TextField(max_length = BODY_LENGTH)
 	is_answer = models.BooleanField(default = False)
 	timestamp = models.DateTimeField(auto_now_add = True)

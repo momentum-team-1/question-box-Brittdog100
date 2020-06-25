@@ -7,18 +7,26 @@
 	<a href="{% url 'home' %}">Home</a>
 	<hr>
 	<h1>{{ question.title|markdownify }} <a class="qstar" id="{{ question.pk }}">&star;</a></h1>
-	<p class="body">
-		Asked by <a href="{% url 'profile' username=question.user.username %}">{{ question.user.username }}</a>
+	<p>
+		{% if question.user.username == '' %}
+			Asked by deleted user.
+		{% else %}
+			Asked by <a href="{% url 'profile' username=question.user.username %}">{{ question.user.username }}</a>
+		{% endif %}
 		on {{ question.timestamp }}
 	</p>
-	<p>
+	<p class="body">
 		{{ question.body|markdownify }}
 	</p>
 	<hr>
 	{% for answer in question.answers.all %}
 		<div id="{{ answer.pk }}" {% if answer.is_correct %} class="correct" {% endif %}>
 			<p class="body">{{ answer.body|markdownify }}</p>
-			<p>from <a href="{% url 'profile' username=answer.user.username %}">{{ answer.user.username }}</a> on {{ answer.timestamp }}</p>
+			{% if answer.user.username == '' %}
+				<p>from deleted user</p>
+			{% else %}
+				<p>from <a href="{% url 'profile' username=answer.user.username %}">{{ answer.user.username }}</a> on {{ answer.timestamp }}</p>
+			{% endif %}
 			<a id="{{ answer.pk }}" class="star">&star;</a>
 			{% if request.user.id is question.user.id %}
 				<a href="#" id='{{ answer.pk }}' class="mark">waiting for AJAX</a>
